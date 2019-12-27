@@ -1,8 +1,28 @@
-import { correctGuess, actionTypes } from './';
+import moxios from 'moxios';
+import { storeFactory } from '../test/testUtils';
 
-describe(' correctGuess', () => {
-	it('returns object with action type `CORRECT_GUESS` ', () => {
-		const action = correctGuess();
-		expect(action).toEqual({ type: actionTypes.CORRECT_GUESS });
+import { getSecretWord } from './';
+describe('getSecretWord action creator', () => {
+	beforeEach(() => {
+		moxios.install();
+	});
+	afterEach(() => {
+		moxios.uninstall();
+	});
+	it('add response word to state', () => {
+		const secretWord = 'abss';
+		const store = storeFactory();
+
+		moxios.wait(() => {
+			const request = moxios.requests.mostRecent();
+			request.respondWith({
+				status: 200,
+				response: secretWord,
+			});
+		});
+		return store.dispatch(getSecretWord()).then(() => {
+			const newState = store.getState();
+			expect(newState.secretWord).toBe(secretWord);
+		});
 	});
 });

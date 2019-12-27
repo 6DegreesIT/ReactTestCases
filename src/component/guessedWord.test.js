@@ -44,6 +44,14 @@ describe('guessed word pass ', () => {
 			guessedWord: 'abc',
 			letterMatchCount: 1,
 		},
+		{
+			guessedWord: 'abc',
+			letterMatchCount: 1,
+		},
+		{
+			guessedWord: 'abc',
+			letterMatchCount: 1,
+		},
 	];
 	beforeEach(() => {
 		wrapper = setup({ guessedWords });
