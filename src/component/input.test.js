@@ -6,9 +6,11 @@ import Input, { UnconnectedInput } from './input';
 
 const setupShallowWrapper = (initialState = {}) => {
 	const store = storeFactory(initialState);
-	return shallow(<Input store={store} />)
+	const shallowa = shallow(<Input store={store} />)
 		.dive()
 		.dive();
+	console.log(shallowa.debug());
+	return shallowa;
 };
 
 setupShallowWrapper();
@@ -58,6 +60,7 @@ describe('redux props', () => {
 		const success = true;
 		const wrapper = setupShallowWrapper({ success });
 		const successProp = wrapper.instance().props.success;
+		console.log(successProp);
 		expect(successProp).toBe(success);
 	});
 	it('has `guessWord` action creator are object', () => {
